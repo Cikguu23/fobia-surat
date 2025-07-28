@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cerita Fobia dalam Surat Sahabat</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            min-height: 100vh;
+        }
+        
+        .balloon {
+            cursor: pointer;
+            position: absolute;
+            animation: float 8s infinite ease-in-out;
+            transform-origin: bottom center;
+            transition: transform 0.1s;
+        }
+        
+        .balloon:hover {
+            transform: scale(1.1);
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(3deg); }
+            50% { transform: translateY(-20px) rotate(-3deg); }
+        }
+        
+        .balloon-pop {
+            animation: pop 0.3s forwards;
+        }
+        
+        @keyframes pop {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.4); opacity: 0.7; }
+            100% { transform: scale(0.1); opacity: 0; }
+        }
+        
+        .term {
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .definition {
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .definition.highlight {
+            background-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+        
+        .correct-match {
+            animation: correct 0.5s forwards;
+        }
+        
+        @keyframes correct {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); background-color: rgba(52, 211, 153, 0.3); }
+        }
+        
+        .menu-btn {
+            transition: all 0.3s;
+        }
+        
+        .menu-btn:hover {
+            transform: translateY(-3px);
+        }
+        
+        .menu-btn.active {
+            background-color: #4f46e5;
+            color: white;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+        }
+        
+        .trophy {
+            color: #FFD700;
+            margin-right: 8px;
+        }
+        
+        .topic-selector {
+            transition: all 0.3s;
+        }
+        
+        .topic-selector:hover {
+            transform: translateY(-2px);
+        }
+        
+        .topic-selector.active {
+            border-color: #4f46e5;
+            background-color: #EEF2FF;
+        }
+        
+        .topic-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .topic-badge.fobia {
+            background-color: #EEF2FF;
+            color: #4F46E5;
+        }
+        
+        .topic-badge.surat {
+            background-color: #ECFDF5;
+            color: #059669;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        /* Homepage animations */
+        .float-element {
+            animation: float-slow 6s infinite ease-in-out;
+        }
+        
+        @keyframes float-slow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .feature-card {
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .hero-balloon {
+            position: absolute;
+            animation: float-balloon 15s infinite ease-in-out;
+        }
+        
+        @keyframes float-balloon {
+            0%, 100% { transform: translate(0, 0) rotate(3deg); }
+            25% { transform: translate(20px, -30px) rotate(-2deg); }
+            50% { transform: translate(0, -50px) rotate(1deg); }
+            75% { transform: translate(-20px, -20px) rotate(-3deg); }
+        }
+        
+        .letter-icon {
+            animation: letter-float 8s infinite ease-in-out;
+        }
+        
+        @keyframes letter-float {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+    </style>
+</head>
+<body class="text-white">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
+            <div class="flex items-center">
+                <div class="bg-white rounded-full p-2 mr-3 shadow-md">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 19v-8.93a2 2 0 01.89-1.664l7-4.666a2 2 0 012.22 0l7 4.666A2 2 0 0121 10.07V19M3 19a2 2 0 002 2h14a2 2 0 002-2M3 19l6.75-4.5M21 19l-6.75-4.5M3 10l6.75 4.5M21 10l-6.75 4.5m0 0l-1.14.76a2 2 0 01-2.22 0l-1.14-.76" />
+                    </svg>
+                </div>
+                <h1 class="text-2xl font-bold">Cerita Fobia</h1>
+            </div>
+            
+            <!-- Menu Navigation -->
+            <div class="flex flex-wrap justify-center gap-2 sm:gap-4">
+                <button id="btn-beranda" class="menu-btn bg-white text-indigo-600 px-4 py-2 rounded-full font-bold shadow-lg active">Beranda</button>
+                <button id="btn-materi" class="menu-btn bg-white text-indigo-600 px-4 py-2 rounded-full font-bold shadow-lg">Materi</button>
+                <button id="btn-game" class="menu-btn bg-white text-indigo-600 px-4 py-2 rounded-full font-bold shadow-lg">Game</button>
+                <button id="btn-ranking" class="menu-btn bg-white text-indigo-600 px-4 py-2 rounded-full font-bold shadow-lg">Ranking</button>
+            </div>
+        </header>
+        
+        <!-- Name Input Screen -->
+        <div id="name-input-screen" class="hidden bg-white text-indigo-800 p-8 rounded-xl shadow-2xl max-w-md mx-auto">
+            <h2 class="text-2xl font-bold mb-4 text-center">Masukkan Nama Kamu</h2>
+            <input type="text" id="player-name" class="w-full px-4 py-3 rounded-lg border-2 border-indigo-300 focus:border-indigo-500 focus:outline-none text-gray-700 mb-4" placeholder="Nama kamu...">
+            <button id="start-game-btn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg transition-colors">Lanjut</button>
+        </div>
+        
+        <!-- Content Sections -->
+        <div id="content-container">
+            <!-- Homepage Section -->
+            <div id="beranda-section" class="bg-white text-indigo-800 p-8 rounded-xl shadow-2xl">
+                <div class="relative overflow-hidden rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white p-8 mb-8">
+                    <div class="relative z-10">
+                        <h2 class="text-4xl md:text-5xl font-bold mb-4 leading-tight">Cerita Fobia dalam Surat Sahabat</h2>
+                        <p class="text-xl mb-6 max-w-2xl">Belajar tentang fobia dan menulis surat pribadi dengan cara yang menyenangkan melalui permainan interaktif.</p>
+                        <button id="mulai-belajar-btn" class="bg-white text-indigo-600 hover:bg-indigo-50 px-6 py-3 rounded-lg font-bold shadow-lg transition-all pulse">Mulai Belajar</button>
+                    </div>
+                    
+                    <!-- Decorative elements -->
+                    <div class="absolute right-10 top-10 opacity-70 hero-balloon" style="animation-delay: 0s;">
+                        <svg width="80" height="100" viewBox="0 0 80 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M40 0C25.088 0 10 14.328 10 32C10 49.672 25.088 64 40 64C54.912 64 70 49.672 70 32C70 14.328 54.912 0 40 0Z" fill="#FF6B6B"/><path d="M40 64C38.4 64 37.6 65.6 38.4 68.8C39.2 72 40 76 40 76C40 76 40.8 72 41.6 68.8C42.4 65.6 41.6 64 40 64Z" fill="#D1D5DB"/></svg>
+                    </div>
+                    <div class="absolute right-40 top-20 opacity-70 hero-balloon" style="animation-delay: 1s;">
+                        <svg width="60" height="75" viewBox="0 0 80 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M40 0C25.088 0 10 14.328 10 32C10 49.672 25.088 64 40 64C54.912 64 70 49.672 70 32C70 14.328 54.912 0 40 0Z" fill="#4ECDC4"/><path d="M40 64C38.4 64 37.6 65.6 38.4 68.8C39.2 72 40 76 40 76C40 76 40.8 72 41.6 68.8C42.4 65.6 41.6 64 40 64Z" fill="#D1D5DB"/></svg>
+                    </div>
+                    <div class="absolute right-20 bottom-10 opacity-70 hero-balloon" style="animation-delay: 2s;">
+                        <svg width="70" height="90" viewBox="0 0 80 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M40 0C25.088 0 10 14.328 10 32C10 49.672 25.088 64 40 64C54.912 64 70 49.672 70 32C70 14.328 54.912 0 40 0Z" fill="#FFD166"/><path d="M40 64C38.4 64 37.6 65.6 38.4 68.8C39.2 72 40 76 40 76C40 76 40.8 72 41.6 68.8C42.4 65.6 41.6 64 40 64Z" fill="#D1D5DB"/></svg>
+                    </div>
+                    
+                    <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-white/10 rounded-full"></div>
+                    <div class="absolute -top-20 -right-20 w-60 h-60 bg-white/10 rounded-full"></div>
+                </div>
+                
+                <!-- Features Section -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="feature-card bg-indigo-50 p-6 rounded-xl shadow-md">
+                        <div class="bg-indigo-100 w-16 h-16 rounded-full flex items-center justify-center mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg></div>
+                        <h3 class="text-xl font-bold mb-2">Materi Pembelajaran</h3>
+                        <p class="text-gray-600">Pelajari tentang fobia dan bagian-bagian surat pribadi dengan materi yang mudah dipahami.</p>
+                    </div>
+                    
+                    <div class="feature-card bg-indigo-50 p-6 rounded-xl shadow-md">
+                        <div class="bg-indigo-100 w-16 h-16 rounded-full flex items-center justify-center mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
+                        <h3 class="text-xl font-bold mb-2">Game Interaktif</h3>
+                        <p class="text-gray-600">Bermain game pecah balon untuk mencocokkan kata kunci dengan definisinya secara menyenangkan.</p>
+                    </div>
+                    
+                    <div class="feature-card bg-indigo-50 p-6 rounded-xl shadow-md">
+                        <div class="bg-indigo-100 w-16 h-16 rounded-full flex items-center justify-center mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" /></svg></div>
+                        <h3 class="text-xl font-bold mb-2">Papan Peringkat</h3>
+                        <p class="text-gray-600">Lihat peringkat tertinggi dan bandingkan skormu dengan pemain lainnya.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Materi Section -->
+            <div id="materi-section" class="hidden bg-white text-indigo-800 p-8 rounded-xl shadow-2xl">
+                <h2 class="text-3xl font-bold mb-6 text-center">Materi Pembelajaran</h2>
+                
+                <div class="mb-8">
+                    <h3 class="text-2xl font-bold mb-4">Fobia</h3>
+                    <p class="mb-4">Fobia adalah ketakutan yang sangat berlebihan terhadap benda atau keadaan tertentu yang dapat menghambat kehidupan pengidapnya.</p>
+                    
+                    <h4 class="text-xl font-bold mt-6 mb-3">Contoh Fobia:</h4>
+                    <ul class="list-disc pl-6 mb-6 space-y-2">
+                        <li><span class="font-bold">Ofidiofobia:</span> fobia terhadap ular</li>
+                        <li><span class="font-bold">Koulrofobia:</span> fobia terhadap badut</li>
+                        <li><span class="font-bold">Arakhnofobia:</span> fobia terhadap laba-laba</li>
+                        <li><span class="font-bold">Astrafobia:</span> fobia terhadap guntur dan kilat</li>
+                    </ul>
+                    
+                    <h4 class="text-xl font-bold mt-6 mb-3">Gejala Fobia:</h4>
+                    <ul class="list-disc pl-6 mb-6 grid grid-cols-1 md:grid-cols-2 gap-2">
+                        <li>Jantung berdebar keras</li>
+                        <li>Leher terasa tercekik</li>
+                        <li>Sesak napas</li>
+                        <li>Tubuh gemetar</li>
+                        <li>Mual</li>
+                        <li>Sakit kepala hebat</li>
+                        <li>Menangis</li>
+                        <li>Selalu ingin buang air kecil</li>
+                    </ul>
+                    
+                    <h4 class="text-xl font-bold mt-6 mb-3">Apa yang dapat kamu lakukan jika temanmu mengalami gejala fobia?</h4>
+                    <p class="mb-2">Bantulah agar dia bisa tenang, misalnya dengan:</p>
+                    <ul class="list-disc pl-6 mb-6">
+                        <li>memeluknya;</li>
+                        <li>mengajaknya menjauh dari benda yang membuatnya takut; atau</li>
+                        <li>mengalihkan perhatiannya ke hal lain.</li>
+                    </ul>
+                </div>
+                
+                <div class="border-t-2 border-indigo-100 pt-8 mt-8">
+                    <h3 class="text-2xl font-bold mb-4">Surat Pribadi</h3>
+                    <p class="mb-4">Surat pribadi adalah surat yang ditulis dan ditujukan untuk kepentingan pribadi.</p>
+                    
+                    <h4 class="text-xl font-bold mt-6 mb-3">Bagian-bagian Surat Pribadi:</h4>
+                    <div class="bg-indigo-50 p-6 rounded-lg">
+                        <ol class="list-decimal pl-6 space-y-4">
+                            <li><span class="font-bold">Tempat dan tanggal penulisan surat</span> - Ditulis di bagian kanan atas surat.</li>
+                            <li><span class="font-bold">Alamat tujuan</span> - Ditulis di bagian kiri surat.</li>
+                            <li><span class="font-bold">Salam pembuka</span> - Misalnya: "Halo", "Assalamualaikum", "Salam Hangat", dll.</li>
+                            <li><span class="font-bold">Kalimat pembuka</span> - Berisi sapaan dan kabar.</li>
+                            <li><span class="font-bold">Isi surat</span> - Berisi pesan yang ingin disampaikan.</li>
+                            <li><span class="font-bold">Kalimat penutup</span> - Berisi harapan dan ucapan terima kasih.</li>
+                            <li><span class="font-bold">Salam penutup</span> - Misalnya: "Salam sayang", "Hormat saya", dll.</li>
+                            <li><span class="font-bold">Nama dan tanda tangan pengirim</span> - Ditulis di bagian kanan bawah surat.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Game Section -->
+            <div id="game-section" class="hidden bg-white text-indigo-800 p-8 rounded-xl shadow-2xl">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-3xl font-bold">Game Pecah Balon</h2>
+                    <div class="flex items-center gap-4">
+                        <div class="bg-indigo-100 px-4 py-2 rounded-lg">
+                            <span class="font-bold">Skor:</span> <span id="score">0</span>
+                        </div>
+                        <div class="bg-indigo-100 px-4 py-2 rounded-lg">
+                            <span class="font-bold">Waktu:</span> <span id="timer">60</span>s
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Game Rules -->
+                <div id="game-rules" class="bg-indigo-50 p-6 rounded-xl mb-6">
+                    <h3 class="text-xl font-bold mb-3">Aturan Main:</h3>
+                    <ol class="list-decimal pl-6 space-y-2">
+                        <li>Pecahkan balon dengan mengklik pada balon yang muncul.</li>
+                        <li>Setelah memecahkan balon, kata kunci akan terpilih secara otomatis.</li>
+                        <li>Klik pada definisi yang cocok dengan kata kunci tersebut.</li>
+                        <li>Jika benar, kamu akan mendapatkan 10 poin.</li>
+                        <li>Kamu memiliki waktu 60 detik untuk mendapatkan skor setinggi mungkin.</li>
+                    </ol>
+                    
+                    <!-- Topic Selector -->
+                    <div class="mt-6">
+                        <h4 class="font-bold mb-3">Pilih Topik:</h4>
+                        <div class="flex flex-wrap gap-3">
+                            <button id="topic-fobia" class="topic-selector bg-white px-4 py-2 rounded-lg border-2 border-indigo-200 font-medium active">Fobia</button>
+                            <button id="topic-surat" class="topic-selector bg-white px-4 py-2 rounded-lg border-2 border-indigo-200 font-medium">Surat Pribadi</button>
+                        </div>
+                    </div>
+                    <div class="mt-6 text-center">
+                        <button id="begin-play-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-lg transition-colors">Mulai Bermain</button>
+                    </div>
+                </div>
+                
+                <div id="game-board" class="hidden">
+                    <div id="balloon-container" class="relative bg-indigo-50 rounded-xl h-[400px] mb-6 overflow-hidden">
+                        <!-- Balloons will be generated here -->
+                    </div>
+                    
+                    <div id="matching-area" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-xl font-bold mb-4">Kata Kunci</h3>
+                            <div id="terms-container" class="space-y-3">
+                                <!-- Terms will be generated here -->
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-4">Definisi</h3>
+                            <div id="definitions-container" class="space-y-3">
+                                <!-- Definitions will be generated here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="game-over" class="hidden text-center py-8">
+                    <h3 class="text-2xl font-bold mb-2">Permainan Selesai!</h3>
+                    <p class="text-lg mb-2">Topik: <span id="final-topic" class="font-bold">Fobia</span></p>
+                    <p class="text-xl mb-6">Skor Akhir: <span id="final-score" class="font-bold">0</span></p>
+                    <div class="flex justify-center gap-4">
+                        <button id="play-again-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition-colors">Main Lagi</button>
+                        <button id="save-score-btn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition-colors">Simpan Skor</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Ranking Section -->
+            <div id="ranking-section" class="hidden bg-white text-indigo-800 p-8 rounded-xl shadow-2xl">
+                <h2 class="text-3xl font-bold mb-6 text-center">Ranking Pemain</h2>
+                <div class="bg-indigo-50 rounded-xl p-6">
+                    <div id="ranking-empty" class="text-center text-gray-500 py-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto mb-4 text-indigo-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a4 4 0 014 4v2m0 0v2a4 4 0 01-4 4h-1a4 4 0 01-4-4V11a4 4 0 014-4h1z" /></svg>
+                        <p class="text-lg">Belum ada data ranking saat ini</p>
+                        <p class="mt-2">Mainkan game untuk masuk ke daftar ranking!</p>
+                    </div>
+                    
+                    <div id="ranking-list" class="hidden">
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full bg-white rounded-lg">
+                                <thead>
+                                    <tr class="bg-indigo-100 text-indigo-800">
+                                        <th class="py-3 px-4 text-left rounded-tl-lg">Peringkat</th>
+                                        <th class="py-3 px-4 text-left">Nama</th>
+                                        <th class="py-3 px-4 text-left">Skor</th>
+                                        <th class="py-3 px-4 text-left">Topik</th>
+                                        <th class="py-3 px-4 text-left rounded-tr-lg">Tanggal</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ranking-table-body">
+                                    <!-- Ranking data will be inserted here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="text-center mt-8 text-white/80 text-sm">
+            <p>&copy; Copyright Cikgu Junid 2025</p>
+        </footer>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js";
+        import { getFirestore, collection, addDoc, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDw2fQO_u2dSC29hrCZXGsotw5ixfAu90g",
+            authDomain: "bahasaindo-fobia-surat.firebaseapp.com",
+            projectId: "bahasaindo-fobia-surat",
+            storageBucket: "bahasaindo-fobia-surat.appspot.com",
+            messagingSenderId: "926450042202",
+            appId: "1:926450042202:web:75ca5e2b7bfb5514d0df63",
+            measurementId: "G-TLWV5FKF3R"
+        };
+        
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+        
+        // Game data
+        const gameData = {
+            fobia: [
+                { term: "Ofidiofobia", definition: "Fobia terhadap ular" },
+                { term: "Koulrofobia", definition: "Fobia terhadap badut" },
+                { term: "Arakhnofobia", definition: "Fobia terhadap laba-laba" },
+                { term: "Astrafobia", definition: "Fobia terhadap guntur dan kilat" },
+                { term: "Akrofobia", definition: "Fobia terhadap ketinggian" },
+                { term: "Klaustrofobia", definition: "Fobia terhadap ruang sempit" }
+            ],
+            surat: [
+                { term: "Tempat & tanggal", definition: "Ditulis di bagian kanan atas surat" },
+                { term: "Alamat tujuan", definition: "Ditulis di bagian kiri surat" },
+                { term: "Salam pembuka", definition: "Misalnya: 'Halo', 'Assalamualaikum'" },
+                { term: "Kalimat pembuka", definition: "Berisi sapaan dan kabar" },
+                { term: "Isi surat", definition: "Berisi pesan yang ingin disampaikan" },
+                { term: "Kalimat penutup", definition: "Berisi harapan dan ucapan terima kasih" },
+                { term: "Salam penutup", definition: "Misalnya: 'Salam sayang', 'Hormat saya'" },
+                { term: "Nama & ttd", definition: "Ditulis di bagian kanan bawah surat" }
+            ]
+        };
+        
+        // DOM Elements
+        const menuButtons = { beranda: document.getElementById('btn-beranda'), materi: document.getElementById('btn-materi'), game: document.getElementById('btn-game'), ranking: document.getElementById('btn-ranking') };
+        const sections = { beranda: document.getElementById('beranda-section'), materi: document.getElementById('materi-section'), game: document.getElementById('game-section'), ranking: document.getElementById('ranking-section'), nameInput: document.getElementById('name-input-screen') };
+        const contentContainer = document.getElementById('content-container');
+        const playerNameInput = document.getElementById('player-name');
+        const startGameBtn = document.getElementById('start-game-btn');
+        const balloonContainer = document.getElementById('balloon-container');
+        const termsContainer = document.getElementById('terms-container');
+        const definitionsContainer = document.getElementById('definitions-container');
+        const scoreElement = document.getElementById('score');
+        const timerElement = document.getElementById('timer');
+        const gameOverElement = document.getElementById('game-over');
+        const gameBoardElement = document.getElementById('game-board');
+        const gameRulesElement = document.getElementById('game-rules');
+        const finalScoreElement = document.getElementById('final-score');
+        const finalTopicElement = document.getElementById('final-topic');
+        const playAgainBtn = document.getElementById('play-again-btn');
+        const saveScoreBtn = document.getElementById('save-score-btn');
+        const beginPlayBtn = document.getElementById('begin-play-btn');
+        const topicButtons = { fobia: document.getElementById('topic-fobia'), surat: document.getElementById('topic-surat') };
+        const rankingEmptyElement = document.getElementById('ranking-empty');
+        const rankingListElement = document.getElementById('ranking-list');
+        const rankingTableBody = document.getElementById('ranking-table-body');
+        const homepageButtons = [document.getElementById('mulai-belajar-btn'), document.getElementById('baca-materi-fobia-btn'), document.getElementById('baca-materi-surat-btn'), document.getElementById('main-game-btn'), document.getElementById('mulai-sekarang-btn')];
+
+        // Game state
+        let playerName = '';
+        let score = 0;
+        let timeLeft = 60;
+        let gameTimer;
+        let selectedTermElement = null;
+        let currentTopic = 'fobia';
+        let rankings = [];
+        let scoreSaved = false;
+        let balloonInterval;
+        
+        const balloonColors = ['#FF6B6B', '#4ECDC4', '#FFD166', '#06D6A0', '#118AB2', '#EF476F', '#FFC43D', '#1B9AAA', '#6A4C93', '#F15BB5'];
+        
+        async function init() {
+            try {
+                await signInAnonymously(auth);
+                console.log("Signed in anonymously");
+            } catch (error) {
+                console.error("Anonymous sign-in failed: ", error);
+            }
+
+            Object.keys(menuButtons).forEach(key => {
+                if (menuButtons[key]) {
+                    menuButtons[key].addEventListener('click', () => {
+                        if (key === 'game') showSection('nameInput');
+                        else showSection(key);
+                    });
+                }
+            });
+            
+            homepageButtons.forEach(btn => {
+                if (btn) {
+                    btn.addEventListener('click', (e) => {
+                        const id = e.target.id;
+                        if (id.includes('materi') || id.includes('belajar')) showSection('materi');
+                        else if (id.includes('game') || id.includes('sekarang')) showSection('nameInput');
+                    });
+                }
+            });
+            
+            if (startGameBtn) startGameBtn.addEventListener('click', () => {
+                playerName = playerNameInput.value.trim() || 'Pemain';
+                showSection('game');
+                prepareGame();
+            });
+            
+            if (beginPlayBtn) beginPlayBtn.addEventListener('click', beginPlay);
+            if (playAgainBtn) playAgainBtn.addEventListener('click', prepareGame);
+            if (saveScoreBtn) saveScoreBtn.addEventListener('click', saveScore);
+            
+            Object.keys(topicButtons).forEach(key => {
+                if (topicButtons[key]) {
+                    topicButtons[key].addEventListener('click', () => selectTopic(key));
+                }
+            });
+            
+            await loadRankings();
+            showSection('beranda');
+        }
+        
+        function showSection(sectionName) {
+            Object.values(sections).forEach(section => section.classList.add('hidden'));
+            Object.values(menuButtons).forEach(btn => btn.classList.remove('active'));
+            
+            if (gameTimer) clearInterval(gameTimer);
+            if (balloonInterval) clearInterval(balloonInterval);
+
+            if (sectionName === 'nameInput') {
+                sections.nameInput.classList.remove('hidden');
+                contentContainer.classList.add('hidden');
+                if (menuButtons.game) menuButtons.game.classList.add('active');
+            } else {
+                if (sections[sectionName]) sections[sectionName].classList.remove('hidden');
+                contentContainer.classList.remove('hidden');
+                if (menuButtons[sectionName]) menuButtons[sectionName].classList.add('active');
+                
+                if (sectionName === 'ranking') {
+                    updateRankingDisplay();
+                }
+            }
+        }
+        
+        function selectTopic(topic) {
+            currentTopic = topic;
+            Object.keys(topicButtons).forEach(key => {
+                if (topicButtons[key]) {
+                    topicButtons[key].classList.toggle('active', key === topic);
+                }
+            });
+        }
+
+        function prepareGame() {
+            score = 0;
+            timeLeft = 60;
+            selectedTermElement = null;
+            scoreSaved = false;
+
+            if (saveScoreBtn) {
+                saveScoreBtn.disabled = false;
+                saveScoreBtn.classList.remove('bg-gray-400', 'cursor-not-allowed');
+                saveScoreBtn.classList.add('bg-green-600', 'hover:bg-green-700');
+            }
+
+            scoreElement.textContent = score;
+            timerElement.textContent = timeLeft;
+            
+            gameOverElement.classList.add('hidden');
+            gameBoardElement.classList.add('hidden');
+            gameRulesElement.classList.remove('hidden');
+            
+            termsContainer.innerHTML = '';
+            definitionsContainer.innerHTML = '';
+            balloonContainer.innerHTML = '';
+        }
+        
+        function beginPlay() {
+            gameRulesElement.classList.add('hidden');
+            gameBoardElement.classList.remove('hidden');
+            setupGameBoard();
+            startTimer();
+            balloonInterval = setInterval(createBalloon, 2000);
+        }
+
+        function setupGameBoard() {
+            const topicData = [...gameData[currentTopic]].sort(() => 0.5 - Math.random());
+            const definitions = [...topicData].sort(() => 0.5 - Math.random());
+
+            topicData.forEach((item) => {
+                const termEl = document.createElement('div');
+                termEl.className = 'term bg-white p-3 rounded-lg shadow-md border-2 border-transparent';
+                termEl.textContent = item.term;
+                termEl.dataset.term = item.term;
+                termsContainer.appendChild(termEl);
+            });
+
+            definitions.forEach(item => {
+                const defEl = document.createElement('div');
+                defEl.className = 'definition bg-white p-3 rounded-lg shadow-md';
+                defEl.textContent = item.definition;
+                defEl.dataset.term = item.term;
+                defEl.addEventListener('click', () => checkMatch(defEl));
+                definitionsContainer.appendChild(defEl);
+            });
+        }
+
+        function createBalloon() {
+            const availableTerms = Array.from(termsContainer.children).filter(t => !t.classList.contains('correct-match'));
+            if (availableTerms.length === 0) return;
+
+            const termEl = availableTerms[Math.floor(Math.random() * availableTerms.length)];
+            const term = termEl.dataset.term;
+
+            const balloon = document.createElement('div');
+            balloon.className = 'balloon';
+            balloon.style.left = `${Math.random() * 85}%`;
+            balloon.style.animationDuration = `${Math.random() * 5 + 8}s`;
+            
+            const color = balloonColors[Math.floor(Math.random() * balloonColors.length)];
+            balloon.innerHTML = `
+                <svg width="80" height="100" viewBox="0 0 80 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M40 0C25.088 0 10 14.328 10 32C10 49.672 25.088 64 40 64C54.912 64 70 49.672 70 32C70 14.328 54.912 0 40 0Z" fill="${color}"/>
+                    <path d="M40 64C38.4 64 37.6 65.6 38.4 68.8C39.2 72 40 76 40 76C40 76 40.8 72 41.6 68.8C42.4 65.6 41.6 64 40 64Z" fill="#D1D5DB"/>
+                    <text x="40" y="36" text-anchor="middle" fill="white" font-size="10" font-weight="bold">${term}</text>
+                </svg>
+            `;
+            
+            balloonContainer.appendChild(balloon);
+            
+            balloon.addEventListener('click', () => popBalloon(balloon, term));
+            setTimeout(() => balloon.remove(), parseFloat(balloon.style.animationDuration) * 1000);
+        }
+
+        function popBalloon(balloon, term) {
+            balloon.classList.add('balloon-pop');
+            setTimeout(() => balloon.remove(), 300);
+
+            if (selectedTermElement) selectedTermElement.classList.remove('bg-indigo-100', 'border-indigo-500');
+            selectedTermElement = document.querySelector(`.term[data-term="${term}"]`);
+            if (selectedTermElement && !selectedTermElement.classList.contains('correct-match')) {
+                selectedTermElement.classList.add('bg-indigo-100', 'border-indigo-500');
+            }
+        }
+
+        function checkMatch(definitionElement) {
+            if (!selectedTermElement) return;
+
+            if (definitionElement.dataset.term === selectedTermElement.dataset.term) {
+                selectedTermElement.classList.add('correct-match');
+                definitionElement.classList.add('correct-match');
+                score += 10;
+                scoreElement.textContent = score;
+                selectedTermElement.classList.remove('bg-indigo-100', 'border-indigo-500');
+                selectedTermElement = null;
+
+                if (Array.from(termsContainer.children).every(t => t.classList.contains('correct-match'))) {
+                    endGame();
+                }
+            }
+        }
+
+        function startTimer() {
+            if (gameTimer) clearInterval(gameTimer);
+            gameTimer = setInterval(() => {
+                timeLeft--;
+                timerElement.textContent = timeLeft;
+                if (timeLeft <= 0) endGame();
+            }, 1000);
+        }
+
+        function endGame() {
+            clearInterval(gameTimer);
+            clearInterval(balloonInterval);
+            gameOverElement.classList.remove('hidden');
+            gameBoardElement.classList.add('hidden');
+            gameRulesElement.classList.add('hidden');
+            finalScoreElement.textContent = score;
+            finalTopicElement.textContent = currentTopic === 'fobia' ? 'Fobia' : 'Surat Pribadi';
+            createConfetti();
+        }
+
+        function createConfetti() {
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = `${Math.random() * 100}%`;
+                confetti.style.top = `${-20 - Math.random() * 20}px`;
+                confetti.style.backgroundColor = balloonColors[Math.floor(Math.random() * balloonColors.length)];
+                confetti.style.animation = `fall ${Math.random() * 3 + 2}s linear ${Math.random() * 2}s forwards`;
+                gameOverElement.appendChild(confetti);
+            }
+            const style = document.createElement('style');
+            style.innerHTML = `@keyframes fall { to { transform: translateY(200px) rotate(360deg); opacity: 0; } }`;
+            document.head.appendChild(style);
+        }
+
+        async function saveScore() {
+            if (scoreSaved) return;
+            scoreSaved = true;
+
+            const rankingEntry = { 
+                name: playerName, 
+                score: score, 
+                topic: currentTopic === 'fobia' ? 'Fobia' : 'Surat Pribadi', 
+                date: new Date()
+            };
+            
+            try {
+                await addDoc(collection(db, "rankings"), rankingEntry);
+                console.log("Score saved successfully!");
+            } catch (error) {
+                console.error("Error saving score: ", error);
+                alert("Gagal menyimpan skor. Silakan coba lagi.");
+                scoreSaved = false;
+                return;
+            }
+            
+            await loadRankings();
+            showSection('ranking');
+            
+            saveScoreBtn.disabled = true;
+            saveScoreBtn.classList.add('bg-gray-400', 'cursor-not-allowed');
+            saveScoreBtn.classList.remove('bg-green-600', 'hover:bg-green-700');
+        }
+
+        async function loadRankings() {
+            try {
+                const q = query(collection(db, "rankings"), orderBy("score", "desc"), limit(10));
+                const querySnapshot = await getDocs(q);
+                rankings = [];
+                querySnapshot.forEach((doc) => {
+                    rankings.push(doc.data());
+                });
+            } catch (error) {
+                console.error("Error loading rankings: ", error);
+                rankings = [];
+            }
+        }
+
+        function updateRankingDisplay() {
+            if (rankings.length === 0) {
+                rankingEmptyElement.classList.remove('hidden');
+                rankingListElement.classList.add('hidden');
+            } else {
+                rankingEmptyElement.classList.add('hidden');
+                rankingListElement.classList.remove('hidden');
+                rankingTableBody.innerHTML = '';
+                rankings.forEach((entry, index) => {
+                    const row = rankingTableBody.insertRow();
+                    row.className = index % 2 === 0 ? 'bg-white' : 'bg-gray-50';
+                    const date = entry.date.toDate ? entry.date.toDate().toLocaleDateString('id-ID') : new Date().toLocaleDateString('id-ID');
+
+                    row.innerHTML = `
+                        <td class="py-3 px-4">${index < 3 ? ['🥇', '🥈', '🥉'][index] : index + 1}</td>
+                        <td class="py-3 px-4 font-medium">${entry.name}</td>
+                        <td class="py-3 px-4 font-bold">${entry.score}</td>
+                        <td class="py-3 px-4"><span class="topic-badge ${entry.topic === 'Fobia' ? 'fobia' : 'surat'}">${entry.topic}</span></td>
+                        <td class="py-3 px-4 text-gray-500">${date}</td>
+                    `;
+                });
+            }
+        }
+        
+        init();
+    </script>
+</body>
+</html>
